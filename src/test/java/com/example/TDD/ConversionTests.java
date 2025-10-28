@@ -1,18 +1,88 @@
 package com.example.TDD;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 
-@SpringBootTest
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+
 class ConversionTests {
 
     @Test
     void shouldThrowExceptionForNegativeUsd() {
-        assertThatTHrownBy(() -> converter.usdToEur(new BigDecimal("-10")))
+        assertThatThrownBy(() -> converter.usdToEur(new BigDecimal("-10")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("negative");
+    }
+    @Test
+    void shouldReturn121WhenConvertingFromUsd() {
+        assertThat(converter.usdToEur(new BigDecimal("100")))
+                .isEqualTo(new BigDecimal("121.95"));
+    }
+
+    @Test
+    void shouldThrowExceptionForNegativeEur() {
+        assertThatThrownBy(()-> converter.eurToUsd(new BigDecimal("-10")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("negative");
     }
 
+    @Test
+    void shouldReturn117WhenConvertingFromEur() {
+        assertThat(converter.eurToUsd(new BigDecimal("100")))
+        .isEqualTo( new BigDecimal("117.00"));
+    }
+
+    @Test
+    void shouldThrowExceptionForNegativeUsdToSek() {
+        assertThatThrownBy(()-> converter.usdToSek(new BigDecimal("-10")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("negative");
+    }
+
+    @Test
+    void shouldReturn10WhenConvertingFromUsdToSek() {
+        assertThat(converter.usdToSek(new BigDecimal("100")))
+                .isEqualTo( new BigDecimal("10.66"));
+    }
+
+    @Test
+    void shouldThrowExceptionForNegativeSekToUsd() {
+        assertThatThrownBy(()-> converter.sekToUsd(new BigDecimal("-10")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("negative");
+    }
+
+    @Test
+    void shouldReturn909WhenConvertingFromSekToUsd() {
+        assertThat(converter.sekToUsd(new BigDecimal("100")))
+                .isEqualTo( new BigDecimal("909.09"));
+    }
+
+    @Test
+    void shouldThrowExceptionForNegativeEurToSek() {
+        assertThatThrownBy(()-> converter.EurToSek(new BigDecimal("-10")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("negative");
+    }
+
+    @Test
+    void shouldReturn1092WhenConvertingFromEurToSek() {
+        assertThat(converter.EurToSek(new BigDecimal("100")))
+                .isEqualTo( new BigDecimal("1092.00"));
+    }
+
+    @Test
+    void shouldThrowExceptionForNegativeSekToEur() {
+        assertThatThrownBy(()-> converter.sekToEur(new BigDecimal("-10")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("negative");
+    }
+
+    @Test
+    void shouldReturn9WhenConvertingFromSekToEur() {
+        assertThat(converter.sekToEur(new BigDecimal("100")))
+                .isEqualTo( new BigDecimal("9.200"));
+    }
 }
