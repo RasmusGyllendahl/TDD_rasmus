@@ -16,7 +16,7 @@ class ConversionTests {
                 .hasMessageContaining("negative");
     }
     @Test
-    void shouldReturn121WhenConvertingFromUsd() {
+    void shouldReturn100WhenConvertingFromUsd() {
         assertThat(converter.usdToEur(new BigDecimal("100")))
                 .isEqualTo(new BigDecimal("121.95"));
     }
@@ -42,9 +42,9 @@ class ConversionTests {
     }
 
     @Test
-    void shouldReturn10WhenConvertingFromUsdToSek() {
+    void shouldReturn938WhenConvertingFromUsdToSek() {
         assertThat(converter.usdToSek(new BigDecimal("100")))
-                .isEqualTo( new BigDecimal("10.66"));
+                .isEqualTo( new BigDecimal("938.00"));
     }
 
     @Test
@@ -84,5 +84,19 @@ class ConversionTests {
     void shouldReturn9WhenConvertingFromSekToEur() {
         assertThat(converter.sekToEur(new BigDecimal("100")))
                 .isEqualTo( new BigDecimal("9.200"));
+    }
+
+    @Test
+    void shouldReturn1331WhenConvertingFromUsdToEurToSek() {
+        BigDecimal convertedEur = converter.usdToEur(new BigDecimal("100"));
+        BigDecimal convertedSek = converter.EurToSek(convertedEur);
+        assertThat(convertedSek).isEqualTo(new BigDecimal("1331.6940"));
+    }
+
+    @Test
+    void shouldReturn100WhenGoingFromUsdToEurToUsd() {
+        BigDecimal convertedEur = converter.usdToEur(new BigDecimal("100"));
+        BigDecimal convertedUsd = converter.eurToUsd(convertedEur);
+        assertThat(convertedUsd).isEqualTo(new BigDecimal("100.00"));
     }
 }
