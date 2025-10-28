@@ -45,7 +45,16 @@ public class timeConverter {
 
     public String formatAsHHMMSS(long totalSeconds) {
         validateNonNegative(totalSeconds, "totalSeconds");
-        long hours = totalSeconds / HOURS_PER_DAY;
+        long hours = totalSeconds / SECONDS_PER_HOUR;
+        long remainingSeconds = totalSeconds % SECONDS_PER_HOUR;
+        long minutes = remainingSeconds / SECONDS_PER_MINUTE;
+        long seconds = remainingSeconds % SECONDS_PER_MINUTE;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public long parseAsHHMMSS(String timeString) {
+        
     }
 
 }

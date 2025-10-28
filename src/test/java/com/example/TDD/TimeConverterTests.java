@@ -13,6 +13,14 @@ class TimeConverterTests {
     void shouldConvert60SecondsTo1Minute() {
         assertThat(timeConverter.secondsToMinutes(60)).isEqualTo(1.0);
     }
+    @Test
+    void shouldConvert120SecondsTo2Minutes() {
+        assertThat(timeConverter.secondsToMinutes(120)).isEqualTo(2.0);
+    }
+    @Test
+    void shouldConvert240SecondsTo4Minutes() {
+        assertThat(timeConverter.secondsToMinutes(240)).isEqualTo(4.0);
+    }
 
     @Test
     void shouldThrowExceptionForNegativeSeconds() {
@@ -24,6 +32,11 @@ class TimeConverterTests {
     @Test
     void shouldConvert5MinutesTo300Seconds() {
         assertThat(timeConverter.minutesToSeconds(5)).isEqualTo(300.0);
+    }
+
+    @Test
+    void shouldConvert10MínutesTo600Seconds() {
+        assertThat(timeConverter.minutesToSeconds(10)).isEqualTo(600.0);
     }
 
     @Test
