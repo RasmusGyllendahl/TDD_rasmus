@@ -45,4 +45,6 @@ public class converter {
         return sek.divide(EUR_TO_SEK, 2, RoundingMode.HALF_UP);
     }
 
+
+
 }
